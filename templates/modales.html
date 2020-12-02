@@ -1,0 +1,203 @@
+<!-- Modal Registrar Alumno -->
+<div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Registrar Alumno</h5>
+        </div>
+        
+        <form method="POST" action="{{url_for('insert')}}">
+            <div class="modal-body">
+                    <!-- Boleta -->
+                    <div class="form-group row">
+                    <label for="inputBoleta" class="col-sm-2 col-form-label">Boleta:</label>
+                    <div class="col-sm-10">
+                        <input type="tel" required="required" class="form-control" name="inputBoleta" pattern="[0-9]{10}" title="Ingresa los 10 números de boleta">
+                    </div>
+                    </div>
+                    <!-- Apellido Paterno -->
+                    <div class="form-group row">
+                        <label for="inputAPat" class="col-sm-2 col-form-label">Primer apellido:</label>
+                        <div class="col-sm-10">
+                        <input type="text" required="required" class="form-control" name="inputAPat" pattern="[a-zA-Z]+" title="Sólo puedes ingresar letras">
+                        </div>
+                    </div>
+                    <!-- Apellido Materno -->
+                    <div class="form-group row">
+                        <label for="inputAMat" class="col-sm-2 col-form-label">Segundo apellido:</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" name="inputAMat" pattern="[a-zA-Z]+" title="Sólo puedes ingresar letras">
+                        </div>
+                    </div>
+                    <!-- Nombre -->
+                    <div class="form-group row">
+                        <label for="inputNombre" class="col-sm-2 col-form-label">Nombre(s):</label>
+                        <div class="col-sm-10">
+                        <input type="text" required="required" class="form-control" name="inputNombre" pattern="[a-zA-Z]+" title="Sólo puedes ingresar letras">
+                        </div>
+                    </div>
+                    <!-- CURP -->
+                    <div class="form-group row">
+                        <label for="inputCurp" class="col-sm-2 col-form-label">CURP:</label>
+                        <div class="col-sm-10">
+                        <input type="text" required="required" class="form-control" name="inputCurp"  title="Ingresa un formato válido de CURP">
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary">Aceptar</button>
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+    </div>
+</div>
+
+<!-- Modal Editar Alumno -->
+{% for row in alumnos %}
+<div class="modal fade" id="modalEditar{{row.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar información del alumno</h5>
+        </div>
+        
+        <form method="POST" action="{{url_for('update')}}">
+            <div class="modal-body">
+                    <!-- ID -->
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="hidden" required="required" class="form-control" name="id" value="{{row.0}}">
+                        </div>
+                    </div>
+                    <!-- Boleta -->
+                    <div class="form-group row">
+                        <label for="inputBoleta" class="col-sm-2 col-form-label">Boleta:</label>
+                    <div class="col-sm-10">
+                        <input type="tel" required="required" class="form-control" name="inputBoleta" pattern="[0-9]{10}" title="Ingresa los 10 números de boleta" value="{{row.1}}">
+                    </div>
+                    </div>
+                    <!-- Apellido Paterno -->
+                    <div class="form-group row">
+                        <label for="inputAPat" class="col-sm-2 col-form-label">Primer apellido:</label>
+                        <div class="col-sm-10">
+                        <input type="text" required="required" class="form-control" name="inputAPat" pattern="[a-zA-Z]+" title="Sólo puedes ingresar letras" value="{{row.2}}">
+                        </div>
+                    </div>
+                    <!-- Apellido Materno -->
+                    <div class="form-group row">
+                        <label for="inputAMat" class="col-sm-2 col-form-label">Segundo apellido:</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" name="inputAMat" pattern="[a-zA-Z]+" title="Sólo puedes ingresar letras" value="{{row.3}}">
+                        </div>
+                    </div>
+                    <!-- Nombre -->
+                    <div class="form-group row">
+                        <label for="inputNombre" class="col-sm-2 col-form-label">Nombre(s):</label>
+                        <div class="col-sm-10">
+                        <input type="text" required="required" class="form-control" name="inputNombre" pattern="[a-zA-Z]+" title="Sólo puedes ingresar letras" value="{{row.4}}">
+                        </div>
+                    </div>
+                    <!-- CURP -->
+                    <div class="form-group row">
+                        <label for="inputCurp" class="col-sm-2 col-form-label">CURP:</label>
+                        <div class="col-sm-10">
+                        <input type="text" required="required" class="form-control" name="inputCurp" pattern="[A-Z]{4}[0-9]{6}[A-Z]{6}[0-9]{2}" title="Ingresa un formato válido de CURP" value="{{row.5}}">
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary">Aceptar</button>
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Modal Baja Alumno -->
+{% for row in alumnos %}
+<div class="modal fade" id="modalBaja{{row.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Baja definitiva de alumno</h5>
+        </div>
+        <form method="POST" action="{{url_for('delete')}}">
+            <div class="modal-body">
+                <!-- ID -->
+                ¿Estás seguro de dar de baja al alumno: {{row.2}} {{row.3}} {{row.4}} con boleta: {{row.1}} y CURP {{row.5}}?
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="hidden" required="required" class="form-control" name="id" value="{{row.0}}">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary">Aceptar</button>
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Modal Desactivar Alumno -->
+{% for row in alumnos %}
+<div class="modal fade" id="modalDesactivar{{row.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Desactivar alumno</h5>
+        </div>
+        <form method="POST" action="{{url_for('desactivar')}}">
+            <div class="modal-body">
+                <!-- ID -->
+                ¿Estás seguro de desactivar al alumno: {{row.2}} {{row.3}} {{row.4}} con boleta: {{row.1}} y CURP {{row.5}}?
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="hidden" required="required" class="form-control" name="id" value="{{row.0}}">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary">Aceptar</button>
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Modal Activar Alumno -->
+{% for row in alumnos %}
+<div class="modal fade" id="modalActivar{{row.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Activar alumno</h5>
+        </div>
+        <form method="POST" action="{{url_for('activar')}}">
+            <div class="modal-body">
+                <!-- ID -->
+                ¿Estás seguro de activar al alumno: {{row.2}} {{row.3}} {{row.4}} con boleta: {{row.1}} y CURP {{row.5}}?
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="hidden" required="required" class="form-control" name="id" value="{{row.0}}">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary">Aceptar</button>
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endfor %}

@@ -1,0 +1,87 @@
+{% include "header.html" %}
+
+    {% block body %}
+    
+    <!-- Título -->
+    <div class="container">
+        <div class="well text-center">
+            <br><br>
+            <h1 class="display-4">Alumnos en curso</h1>
+            <br><br>
+        </div>
+    </div>
+
+    <!-- Alerta -->
+    <div class="container">
+        <div class="well text-center">            
+            {%with messages = get_flashed_messages()%}
+                {%if messages%}
+                    {%if messages[-1]%}
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                            {{messages[-1]}}
+                        </div>
+                    {%else%}
+                        {{messages[0]}}
+                    {%endif%}
+                {%endif%}
+            {%endwith%}
+        </div>
+    </div>
+
+    <!-- Tabla mostrar alumnos -->
+    <div class="container ">
+        <div class="well text-center">
+            <table class="table  table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Boleta</th>
+                    <th scope="col">Primer Apellido</th>
+                    <th scope="col">Segundo Apellido</th>
+                    <th scope="col">Nombre(s)</th>
+                    <th scope="col">CURP</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for row in alumnos %}
+                  <tr>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                    <td>{{row.4}}</td>
+                    <td>{{row.5}}</td>
+                    <td>
+                        {%if row.6 == 0%}                            
+                            <i class="fa fa-play fa-2x data" data-toggle="modal" data-target="#modalActivar{{row.0}}">&nbsp;&nbsp;</i> 
+                            <i class="fa fa-pencil fa-2x" data-toggle="modal" data-target="#modalEditar{{row.0}}">&nbsp;&nbsp;</i> 
+                            <i class="fa fa-ban fa-2x" data-toggle="modal" data-target="#modalBaja{{row.0}}">&nbsp;&nbsp;</i> 
+                        {%elif row.6 == 1%}   
+                            <i class="fa fa-stop fa-2x" data-toggle="modal" data-target="#modalDesactivar{{row.0}}">&nbsp;&nbsp;</i>
+                            <i class="fa fa-pencil fa-2x" data-toggle="modal" data-target="#modalEditar{{row.0}}">&nbsp;&nbsp;</i> 
+                            <i class="fa fa-ban fa-2x" data-toggle="modal" data-target="#modalBaja{{row.0}}">&nbsp;&nbsp;</i> 
+                        {%else%}
+                            <!-- El alumno desactivado no tiene funciones -->
+                        {%endif%}
+                    </td>
+                  </tr>
+                  {% endfor  %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    {% include "modales.html" %}
+    
+    <!-- Botón Registrar Alumno  -->
+    <div class="container">
+        <div class="well text-center">
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalRegistrar">Registrar</button>
+        </div>
+    </div>
+    
+    {% endblock %}
+
+{% include "footer.html" %}
